@@ -49,3 +49,6 @@ let User = sequelize.define('user', {
       console.log(JSON.stringify(u));
   }
 })();
+
+
+//github管理测试
