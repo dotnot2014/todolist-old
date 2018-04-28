@@ -40,7 +40,6 @@ let User = sequelize.define('user', {
   tableName: 'user'
 });
 
-
 //新增一条记录
 
 // var now = Date.now();
