@@ -40,6 +40,31 @@ let User = sequelize.define('user', {
   tableName: 'user'
 });
 
+
+//新增一条记录
+
+// var now = Date.now();
+
+// User.create({
+//   user_name:'peter',
+//   password:'999',
+//   createdAt: now,
+//   updatedAt: now
+// }).then(u=>{
+//   console.log('created.'+JSON.stringify(u))
+// }).catch(err=>{
+//   console.log('failed:' + err)
+// })
+
+//修改数据
+// (async () => {
+//   var u = await User.findById(4);
+//   u.user_name = 'peter';
+//   u.updatedAt = Date.now();
+//   await u.save();
+// })();
+
+
 // 查询数据
 
 (async () => {
