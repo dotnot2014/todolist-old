@@ -1,5 +1,6 @@
 import Login from './components/login.vue'
 import TodoList from './components/todolist.vue'
+import UserInfo from './components/userinfo.vue'
 
 let routerConfig = {
     mode:'history',
@@ -12,6 +13,10 @@ let routerConfig = {
         {
             path:'/todolist',
             component:TodoList
+        },
+        {
+            path:'/users',
+            component:UserInfo
         },
         {
             path:'*',
