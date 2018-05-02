@@ -6,6 +6,8 @@
     <br>
     <span>当前用户：{{account}}</span><br>
     <span>登录密码：{{password}}</span>
+    <br>
+    <button @click="enter">进入ToDoList</button>
   </div>
 </template>
 
@@ -31,6 +33,9 @@ export default {
                 .catch(function (error) {
                     console.log(error);
                 })
+        },
+        enter(){
+            this.$router.push('/todolist')
         }
     }
 }

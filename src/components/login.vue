@@ -31,7 +31,7 @@ export default {
     },
     methods:{
         loginTodo(){
-            this.$router.push('/todolist')
+            this.$router.push('/users')
         }
     }
 };
