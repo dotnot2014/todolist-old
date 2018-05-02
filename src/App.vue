@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img id="logo" src="./assets/todo2.jpg">
+    <a href="http://localhost:8080"><img id="logo" src="./assets/todo2.jpg"></a>
     <router-view></router-view>
   </div>
 </template>
