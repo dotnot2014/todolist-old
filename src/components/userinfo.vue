@@ -24,7 +24,7 @@ export default {
     methods:{
         login(index){
             var that = this;
-            var url = 'http://localhost:3000/api/users/'+index;
+            var url = `http://localhost:8889/auth/user/${index}`;
             axios.get(url)
                 .then(function (res) {
                     that.account = res.data.user_name;

@@ -21,6 +21,7 @@
     "not ie <= 8"
   ],
   "devDependencies": {
+    "@koa/cors": "^2.2.1",
     "axios": "^0.18.0",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
@@ -29,6 +30,11 @@
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.7",
     "file-loader": "^1.1.4",
+    "koa": "^2.5.1",
+    "koa-bodyparser": "^4.2.0",
+    "koa-json": "^2.0.2",
+    "koa-logger": "^3.2.0",
+    "koa-router": "^7.4.0",
     "postcss-loader": "^2.1.4",
     "style-loader": "^0.21.0",
     "stylus": "^0.54.5",

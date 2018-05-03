@@ -16,6 +16,16 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.CHAR(128),
       allowNull: false,
       defaultValue: ''
+    },
+    createdAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
+    },
+    updatedAt: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: sequelize.literal('CURRENT_TIMESTAMP')
     }
   }, {
     tableName: 'user'

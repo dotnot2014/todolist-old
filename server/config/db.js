@@ -2,7 +2,7 @@
 
 const Sequelize = require('sequelize');
 
-const Todolist = new Sequelize('mysql://root:12345678/todolist',{
+const Todolist = new Sequelize('mysql://root:12345678@127.0.0.1/todolist',{
     define:{
         timestamps:false
     }
