@@ -26,7 +26,7 @@ export default {
             var that = this;
             var url = `http://localhost:8889/auth/user/${index}`;
             axios.get(url)
-                .then(function (res) {
+                .then(res=>{
                     that.account = res.data.user_name;
                     that.password = res.data.password;
                 })

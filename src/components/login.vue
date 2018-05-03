@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     data(){
         return{
@@ -31,7 +33,28 @@ export default {
     },
     methods:{
         loginTodo(){
-            this.$router.push('/users')
+            var that = this;
+            let obj = {
+                name: that.account,
+                password: that.password
+            }
+            axios.post('http://localhost:8889/auth/user ',obj).then(res=>{
+                if(res.data.success){
+                    sessionStorage.setItem('todo-token',res.data.token);
+                    that.$message({
+                        type:'success',
+                        message:'登录成功'
+                    });
+                    that.$router.push('/todolist')
+                }else{
+                    that.$message.error(res.data.info);
+                    sessionStorage.setItem('todo-token',null)
+                }
+            },(err)=>{
+                that.$message.error('请求错误:'+err);
+                sessionStorage.setItem('todo-token',null);
+            })
+            // this.$router.push('/users')
         }
     }
 };

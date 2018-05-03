@@ -3,6 +3,9 @@
 const userauth = require('../controllers/user.js'); 
 const router = require('koa-router')();
 
-router.get('/user/:id', userauth.getUserInfo); // 定义url的参数是id,用user的auth方法引入router
+// 用user的auth方法引入router
+router.get('/user/:id', userauth.getUserInfo); 
+router.post('/user',userauth.postUserAuth);
 
-module.exports = router; // 把router规则暴露出去
+// 把router规则暴露出去
+module.exports = router; 
