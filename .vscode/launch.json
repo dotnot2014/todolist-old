@@ -7,8 +7,8 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "router",
-            "program": "${workspaceFolder}/router.js"
+            "name": "server",
+            "program": "${workspaceFolder}/app.js"
         }
     ]
 }
