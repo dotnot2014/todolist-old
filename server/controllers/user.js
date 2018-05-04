@@ -1,5 +1,6 @@
 const user = require('../models/user.js');
 const jwt = require('koa-jwt');
+const jsonwebtoken = require('jsonwebtoken');
 
 const getUserInfo = async function (ctx){
   const id = ctx.params.id; // 获取url里传过来的参数里的id
@@ -9,6 +10,7 @@ const getUserInfo = async function (ctx){
 
 const postUserAuth = async function(ctx){
   const data = ctx.request.body;
+  console.log(data);
   const userInfo = await user.getUserByName(data.name);
 
   if(userInfo != null){
@@ -23,7 +25,7 @@ const postUserAuth = async function(ctx){
         id: userInfo.id
       }
       const secret = 'vue-koa-todolist';
-      const token = jwt.sign(userToken,secret);
+      const token = jsonwebtoken.sign(userToken,secret);
       ctx.body = {
         success: true,
         token: token

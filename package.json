@@ -30,6 +30,7 @@
     "cross-env": "^5.0.5",
     "css-loader": "^0.28.7",
     "file-loader": "^1.1.4",
+    "jsonwebtoken": "^8.2.1",
     "koa": "^2.5.1",
     "koa-bodyparser": "^4.2.0",
     "koa-json": "^2.0.2",
