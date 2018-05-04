@@ -1,6 +1,7 @@
 const user = require('../models/user.js');
 const jwt = require('koa-jwt');
 const jsonwebtoken = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 
 const getUserInfo = async function (ctx){
   const id = ctx.params.id; // 获取url里传过来的参数里的id
@@ -14,7 +15,7 @@ const postUserAuth = async function(ctx){
   const userInfo = await user.getUserByName(data.name);
 
   if(userInfo != null){
-    if(userInfo.password != data.password){
+    if(!bcrypt.compareSync(data.password, userInfo.password)){
       ctx.body = {
         success: false,
         info:'密码错误'
