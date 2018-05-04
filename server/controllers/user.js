@@ -38,8 +38,6 @@ const postUserAuth = async function(ctx){
       info:'用户不存在'
     }
   }
-
-
 }
 
 // 把获取用户信息的方法暴露出去
