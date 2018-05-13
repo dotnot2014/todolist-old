@@ -38,7 +38,7 @@ export default {
                 name: that.account,
                 password: that.password
             }
-            axios.post('/auth/user ',obj).then(res=>{
+            axios.post('http://localhost:8889/auth/user ',obj).then(res=>{
                 if(res.data.success){
                     sessionStorage.setItem('todo-token',res.data.token);
                     that.$message({
