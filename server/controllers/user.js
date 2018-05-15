@@ -11,7 +11,6 @@ const getUserInfo = async function (ctx){
 
 const postUserAuth = async function(ctx){
   const data = ctx.request.body;
-  console.log(data);
   const userInfo = await user.getUserByName(data.name);
 
   if(userInfo != null){

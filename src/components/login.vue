@@ -23,6 +23,7 @@
 
 <script>
 import axios from 'axios';
+const serverUrl = 'http://localhost:8889/auth/user';
 
 export default {
     data(){
@@ -38,7 +39,7 @@ export default {
                 name: that.account,
                 password: that.password
             }
-            axios.post('http://localhost:8889/auth/user ',obj).then(res=>{
+            axios.post(serverUrl,obj).then(res=>{
                 if(res.data.success){
                     sessionStorage.setItem('todo-token',res.data.token);
                     that.$message({

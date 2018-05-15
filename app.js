@@ -5,6 +5,8 @@ const logger = require('koa-logger');
 const auth = require('./server/routes/auth.js');
 const bodyparser = require('koa-bodyparser');
 const cors = require('@koa/cors');
+const jwt = require('koa-jwt');
+const api = require('./server/routes/api');
 
 const app = new Koa();
 app.use(cors());
@@ -24,7 +26,11 @@ app.on('error', function(err, ctx){
   console.log('server error', err);
 });
 
-KoaRouter.use('/auth',auth.routes()); // 挂载到koa-router上，同时会让所有的auth的请求路径前面加上'/auth'的请求路径。
+// 挂载到koa-router上，同时会让所有的auth的请求路径前面加上'/auth'的请求路径。
+KoaRouter.use('/auth',auth.routes()); 
+// 所有走/api/打头的请求都需要经过jwt中间件的验证。
+KoaRouter.use("/api",jwt({secret:'vue-koa-todolist'}),api.routes());
+
 app.use(KoaRouter.routes()); // 将路由规则挂载到Koa上。
 
 app.listen(8889,() => {

@@ -1,7 +1,7 @@
 <template>
   <el-row class="content">
     <el-col :xs="{span:20,offset:2}" :sm="{span:8,offset:8}">
-      <span>欢迎：dotnot，你的待办事项为：</span>
+      <span>欢迎：{{name}}，你的待办事项为：</span>
       <el-input placeholder="请输入你的任务" type="text" v-model="todos" @keyup.enter.native="addTodos"></el-input>
       <el-tabs v-model="activeName">
         <el-tab-pane label="待办事宜" name="first">
@@ -13,8 +13,8 @@
                       {{ index + 1 }}. {{ item.content }}
                     </span>
                     <span class="pull-right">
-                      <el-button size="small" type="success" @click="finished(index)">完成</el-button>
-                      <el-button size="small" type="danger">删除</el-button>
+                      <el-button size="small" type="success" @click="update(index)">完成</el-button>
+                      <el-button size="small" type="danger" @click="remove(index)">删除</el-button>
                     </span>  
                   </div>
                 </template>
@@ -32,7 +32,7 @@
                       {{ index + 1 }}. {{ item.content }}
                     </span>
                     <span class="pull-right">
-                      <el-button size="small" type="primary" @click="reset(index)">还原</el-button>
+                      <el-button size="small" type="primary" @click="update(index)">还原</el-button>
                     </span>  
                   </div>
                 </template>
@@ -43,31 +43,111 @@
   </el-row>
 </template>
 <script>
+import jwt from 'jsonwebtoken';
+const serverUrl = 'http://localhost:8889/api/todolist/'
+
 export default {
+  created(){
+    const userInfo = this.getUserInfo();
+    if(userInfo != null){
+      this.id = userInfo.id;
+      this.name = userInfo.name;
+    }else{
+      this.id = '';
+      this.name = '';
+    }
+    this.getTodolist();
+  },
   data(){
     return{
+      id:'',
+      name:'dotnot',
       activeName:'first',
       todos:'',
       List:[]
     }
   },
   methods:{
-    finished(index){
-      this.List[index].status = true
-    },
-    reset(index){
-      this.List[index].status = false
-    },
     addTodos(){
       if(this.todos == '')
       return
       let obj={
         status:false,
-        content:this.todos
+        content:this.todos,
+        id:this.id
       }
-      this.List.push(obj)
+      this.$http.post(serverUrl,obj).then((res)=>{
+        if(res.status == 200){
+          this.$message({
+            type:'success',
+            message:'创建成功！'
+          })
+          this.getTodolist();
+        }else{
+          this.$message.error('创建失败！')
+        }
+      },(err)=>{
+        this.$message.error('创建失败！')
+        console.log(err)
+      })
+      // this.List.push(obj)
       this.todos = ''
-    }
+    },
+    getUserInfo(){
+        const token = sessionStorage.getItem('todo-token');
+        if( token != 'null' && token != null){
+          let decode = jwt.decode(token)
+          return decode
+        }else{
+          return null
+        }
+    },
+    getTodolist(){
+      this.$http.get(serverUrl+this.id).then((res)=>{
+        if(res.status == 200){
+          this.List = res.data
+        }else{
+          this.$message.error('获取列表失败！')
+        }
+      },(err)=>{
+        this.$message.error('获取列表失败！')
+        console.log(err)
+      })
+    },
+    update(index) {
+      this.$http.put(serverUrl + this.id + '/' + this.List[index].id + '/' + this.List[index].status)
+        .then((res) => {
+          if(res.status == 200){
+            this.$message({
+              type: 'success',
+              message: '任务状态更新成功！'
+            })
+            this.getTodolist();
+          }else{
+            this.$message.error('任务状态更新失败！')
+          }
+        }, (err) => {
+          this.$message.error('任务状态更新失败！')
+          console.log(err)
+        })
+    },
+    remove(index) {
+      this.$http.delete(serverUrl + this.id + '/' + this.List[index].id)
+        .then((res) => {
+          if(res.status == 200){
+            this.$message({
+              type: 'success',
+              message: '任务删除成功！'
+            })
+            this.getTodolist();
+          }else{
+            this.$message.error('任务删除失败！')
+          }
+        }, (err) => {
+          this.$message.error('任务删除失败！')
+          console.log(err)
+        })
+    },
   }
 };
 </script>
